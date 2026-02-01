@@ -75,23 +75,19 @@ Not all errors are equal. Your handling should differ:
 
 ```mermaid
 graph TD
-    A[Error Occurs] --> B{What Type?}
-    B -->|Network Timeout<br/>Rate Limit 429<br/>Server Error 503| C[Transient Error]
-    B -->|Bad Request 400<br/>Auth Failed 401<br/>Not Found 404| D[Permanent Error]
-    B -->|Unknown/Other| E[Unknown Error]
-    
-    C --> F{Attempts < Max?}
-    F -->|Yes| G[Wait with<br/>Exponential Backoff]
-    G --> H[Retry]
-    F -->|No| I[Give Up Gracefully]
-    
-    D --> J[Don't Retry]
-    J --> K[Show User-Friendly<br/>Error Message]
-    
-    E --> L[Log Everything]
-    L --> M[Notify Team]
+    A["Error Occurs"] --> B{"What Type?"}
+    B -->|"Network Timeout<br/>Rate Limit 429<br/>Server Error 503"| C["Transient Error"]
+    B -->|"Bad Request 400<br/>Auth Failed 401<br/>Not Found 404"| D["Permanent Error"]
+    B -->|"Unknown/Other"| E["Unknown Error"]
+    C --> F{"Attempts < Max?"}
+    F -->|Yes| G["Wait with<br/>Exponential Backoff"]
+    G --> H["Retry"]
+    F -->|No| I["Give Up Gracefully"]
+    D --> J["Don't Retry"]
+    J --> K["Show User-Friendly<br/>Error Message"]
+    E --> L["Log Everything"]
+    L --> M["Notify Team"]
     M --> K
-    
     I --> K
     
     style C fill:#ffffcc
@@ -201,21 +197,17 @@ Here's what retry attempts look like over time:
 sequenceDiagram
     participant Agent
     participant API
-    
     Agent->>API: Attempt 1
-    API--xAgent: ❌ Error (timeout)
+    API--xAgent: Error (timeout)
     Note over Agent: Wait 1 second
-    
     Agent->>API: Attempt 2
-    API--xAgent: ❌ Error (still down)
+    API--xAgent: Error (still down)
     Note over Agent: Wait 2 seconds
-    
     Agent->>API: Attempt 3
-    API--xAgent: ❌ Error (still down)
+    API--xAgent: Error (still down)
     Note over Agent: Wait 4 seconds
-    
     Agent->>API: Attempt 4
-    API->>Agent: ✅ Success!
+    API->>Agent: Success!
     Note over Agent,API: Total time: ~7 seconds<br/>(1 + 2 + 4)
 ```
 

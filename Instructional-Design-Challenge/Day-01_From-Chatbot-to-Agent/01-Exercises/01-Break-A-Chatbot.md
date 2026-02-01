@@ -174,19 +174,19 @@ Chatbots are **stateless text generators**. They:
 
 ```mermaid
 graph TD
-    subgraph "Chatbot: Lives in Fantasy Land"
-        C1[User asks about leads] --> C2[LLM generates text]
-        C2 --> C3[Invents plausible-sounding data]
-        C3 --> C4[Returns made-up leads]
-        C4 -.->|No verification| C5[❌ Hallucinated]
+    subgraph Chatbot["Chatbot: Lives in Fantasy Land"]
+        C1["User asks about leads"] --> C2["LLM generates text"]
+        C2 --> C3["Invents plausible-sounding data"]
+        C3 --> C4["Returns made-up leads"]
+        C4 -.->|"No verification"| C5["Hallucinated"]
     end
     
-    subgraph "Agent: Connected to Reality"
-        A1[User asks about leads] --> A2[Agent decides to query DB]
-        A2 --> A3[Queries Supabase]
-        A3 <--> DB[(Real Database)]
-        A3 --> A4[Returns actual leads]
-        A4 -.->|Verified| A5[✅ Real Data]
+    subgraph Agent["Agent: Connected to Reality"]
+        A1["User asks about leads"] --> A2["Agent decides to query DB"]
+        A2 --> A3["Queries Supabase"]
+        A3 <--> DB[("Real Database")]
+        A3 --> A4["Returns actual leads"]
+        A4 -.->|"Verified"| A5["Real Data"]
     end
     
     style C5 fill:#ffcdd2
@@ -203,10 +203,10 @@ Agents solve this by adding:
 
 ```mermaid
 graph LR
-    Now["Exercise 1<br/>❌ Break Chatbot<br/>See the problem"]
-    Next["Exercise 2<br/>🔧 First Node<br/>Start building"]
-    Then["Exercise 3<br/>🔀 Multi-Node<br/>Add routing"]
-    Final["Exercise 4<br/>✅ Real Data<br/>Connect to DB"]
+    Now["Exercise 1<br/>Break Chatbot<br/>See the problem"]
+    Next["Exercise 2<br/>First Node<br/>Start building"]
+    Then["Exercise 3<br/>Multi-Node<br/>Add routing"]
+    Final["Exercise 4<br/>Real Data<br/>Connect to DB"]
     
     Now --> Next --> Then --> Final
     

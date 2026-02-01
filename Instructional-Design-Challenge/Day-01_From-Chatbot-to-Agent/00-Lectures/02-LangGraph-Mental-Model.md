@@ -106,16 +106,16 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph "After Node 1"
-        S1[State:<br/>userMessage ✓<br/>intent ✓]
+    subgraph AfterNode1["After Node 1"]
+        S1["State:<br/>userMessage present<br/>intent present"]
     end
     
-    subgraph "After Node 2"
-        S2[State:<br/>userMessage ✓<br/>intent ✓<br/>leads ✓]
+    subgraph AfterNode2["After Node 2"]
+        S2["State:<br/>userMessage present<br/>intent present<br/>leads present"]
     end
     
-    subgraph "After Node 3"
-        S3[State:<br/>userMessage ✓<br/>intent ✓<br/>leads ✓<br/>response ✓]
+    subgraph AfterNode3["After Node 3"]
+        S3["State:<br/>userMessage present<br/>intent present<br/>leads present<br/>response present"]
     end
     
     S1 -->|merge| S2

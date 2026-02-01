@@ -266,15 +266,15 @@ const supabase = createClient(url, key);  // ✅
 
 ```mermaid
 graph TD
-    S0["Initial State<br/>{<br/>  userMessage: 'Show hot leads',<br/>  intent: null,<br/>  leads: [],<br/>  response: null<br/>}"]
+    S0["Initial State<br/>userMessage: Show hot leads<br/>intent: null<br/>leads: empty<br/>response: null"]
     
-    N1[understand_request<br/>Returns: {intent: {...}}]
+    N1["understand_request<br/>Returns: intent object"]
     
-    S1["Updated State<br/>{<br/>  userMessage: 'Show hot leads',<br/>  intent: {type:'lookup', query:'hot'},<br/>  leads: [],<br/>  response: null<br/>}"]
+    S1["Updated State<br/>userMessage: Show hot leads<br/>intent: type=lookup query=hot<br/>leads: empty<br/>response: null"]
     
-    N2[query_leads<br/>Returns: {leads: [...]}]
+    N2["query_leads<br/>Returns: leads array"]
     
-    S2["Final State<br/>{<br/>  userMessage: 'Show hot leads',<br/>  intent: {type:'lookup', query:'hot'},<br/>  leads: [lead1, lead2, lead3],<br/>  response: null<br/>}"]
+    S2["Final State<br/>userMessage: Show hot leads<br/>intent: type=lookup query=hot<br/>leads: 3 leads<br/>response: null"]
     
     S0 --> N1
     N1 -->|MERGE| S1
@@ -292,16 +292,16 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph "Node Returns"
-        NR["{<br/>  leads: [...]<br/>}"]
+    subgraph NodeReturns["Node Returns"]
+        NR["leads: array"]
     end
     
-    subgraph "Current State"
-        CS["{<br/>  userMessage: '...',<br/>  intent: {...},<br/>  leads: [],<br/>  response: null<br/>}"]
+    subgraph CurrentState["Current State"]
+        CS["userMessage: present<br/>intent: present<br/>leads: empty<br/>response: null"]
     end
     
-    subgraph "Merged State"
-        MS["{<br/>  userMessage: '...',<br/>  intent: {...},<br/>  leads: [...],<br/>  response: null<br/>}"]
+    subgraph MergedState["Merged State"]
+        MS["userMessage: present<br/>intent: present<br/>leads: populated<br/>response: null"]
     end
     
     CS --> |merge| MS

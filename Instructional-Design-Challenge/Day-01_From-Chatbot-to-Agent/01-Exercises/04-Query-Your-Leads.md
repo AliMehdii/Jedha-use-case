@@ -311,23 +311,16 @@ Your agent now:
 ```mermaid
 graph TD
     Start([User: Show me hot leads])
-    
-    N1[understand_request<br/>Classifies intent]
-    
-    Router{routeByIntent<br/>Check type}
-    
-    N2[handleLookup<br/>Query Supabase]
-    
-    DB[(Supabase<br/>Database)]
-    
-    N3[formatLeadsResponse<br/>Make it readable]
-    
-    End([Response: Found 3 hot leads:<br/>1. GlobalRetail (92)...])
-    
+    N1["understand_request<br/>Classifies intent"]
+    Router{"routeByIntent<br/>Check type"}
+    N2["handleLookup<br/>Query Supabase"]
+    DB[("Supabase<br/>Database")]
+    N3["formatLeadsResponse<br/>Make it readable"]
+    End([Response: Found 3 hot leads<br/>1. GlobalRetail score 92...])
     Start --> N1
     N1 --> Router
     Router -->|"lookup"| N2
-    N2 <-->|SELECT * FROM leads<br/>WHERE score > 80| DB
+    N2 <-->|"SELECT FROM leads<br/>WHERE score > 80"| DB
     N2 --> N3
     N3 --> End
     
@@ -345,10 +338,10 @@ This is a *read-only* agent. It can answer questions but can't change anything. 
 
 ```mermaid
 graph LR
-    A[Day 1 Start:<br/>Chatbot<br/>❌ Makes up data]
-    B[After Exercise 2:<br/>Intent Classifier<br/>✓ Understands requests]
-    C[After Exercise 3:<br/>Multi-path Router<br/>✓ Takes different actions]
-    D[After Exercise 4:<br/>Database Agent<br/>✓ Queries real data]
+    A["Day 1 Start:<br/>Chatbot<br/>Makes up data"]
+    B["After Exercise 2:<br/>Intent Classifier<br/>Understands requests"]
+    C["After Exercise 3:<br/>Multi-path Router<br/>Takes different actions"]
+    D["After Exercise 4:<br/>Database Agent<br/>Queries real data"]
     
     A --> B --> C --> D
     

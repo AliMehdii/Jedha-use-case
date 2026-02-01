@@ -25,19 +25,19 @@ An AI agent isn't just a chatbot with extra prompting. It's fundamentally differ
 
 ```mermaid
 graph TB
-    subgraph "CHATBOT FLOW ❌"
-        A1[User: What leads do I have?]
-        A2[LLM generates text<br/>Makes up data]
-        A3[Response: TechCorp, StartupXYZ...<br/>❌ HALLUCINATED DATA]
+    subgraph Chatbot["CHATBOT FLOW"]
+        A1["User: What leads do I have?"]
+        A2["LLM generates text<br/>Makes up data"]
+        A3["Response: TechCorp, StartupXYZ...<br/>HALLUCINATED DATA"]
         A1 --> A2 --> A3
     end
     
-    subgraph "AGENT FLOW ✅"
-        B1[User: What leads do I have?]
-        B2[Agent: I need to check database<br/>🤔 REASONING]
-        B3[Agent queries Supabase<br/>⚡ ACTION]
-        B4[Agent gets real data]
-        B5[Response: 3 leads found...<br/>✅ VERIFIED DATA]
+    subgraph Agent["AGENT FLOW"]
+        B1["User: What leads do I have?"]
+        B2["Agent: I need to check database<br/>REASONING"]
+        B3["Agent queries Supabase<br/>ACTION"]
+        B4["Agent gets real data"]
+        B5["Response: 3 leads found...<br/>VERIFIED DATA"]
         B1 --> B2 --> B3 --> B4 --> B5
     end
     
@@ -66,7 +66,7 @@ Most agents follow a pattern called **ReAct** (Reasoning + Acting). It's exactly
 sequenceDiagram
     participant User
     participant Agent
-    participant LLM as LLM (Brain)
+    participant LLM as "LLM (Brain)"
     participant DB as Database
     
     User->>Agent: What's TechCorp's status?
@@ -77,18 +77,16 @@ sequenceDiagram
     
     Note over Agent,DB: ACT (Action)
     Agent->>DB: SELECT * FROM leads WHERE name='TechCorp'
-    DB-->>Agent: {score: 85, status: 'qualified'}
+    DB-->>Agent: score: 85, status: qualified
     
     Note over Agent,LLM: THINK (Reasoning)
     Agent->>LLM: How should I format this?
     LLM-->>Agent: Show score and status clearly
     
     Note over Agent: ACT (Action)
-    Agent->>User: TechCorp: score 85, status qualified ✅
+    Agent->>User: TechCorp: score 85, status qualified
     
-    rect rgb(200, 230, 255)
-        Note over Agent: The loop continues until<br/>the task is complete
-    end
+    Note over Agent: The loop continues until<br/>the task is complete
 ```
 
 The agent alternates between reasoning (using the LLM to think) and acting (using tools to do things). This loop continues until the task is complete or something goes wrong.

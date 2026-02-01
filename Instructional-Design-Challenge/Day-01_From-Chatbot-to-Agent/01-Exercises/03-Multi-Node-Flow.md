@@ -235,25 +235,17 @@ Your workflow now looks like this:
 
 ```mermaid
 graph TD
-    Start["Initial State<br/>{userMessage: 'Show me leads',<br/>intent: null, response: null}"]
-    
-    N1[understand_request<br/>Classifies intent]
-    
-    Mid["State After Node 1<br/>{userMessage: 'Show me leads',<br/>intent: {type: 'lookup'},<br/>response: null}"]
-    
-    Router{routeByIntent<br/>Checks intent.type}
-    
-    N2[handle_lookup<br/>Returns: Looking up...]
-    N3[handle_other<br/>Returns: Can't do that yet]
-    
-    End1["Final State<br/>{userMessage: 'Show me leads',<br/>intent: {type: 'lookup'},<br/>response: 'Looking up leads...'}"]
-    
-    End2["Final State<br/>{userMessage: 'Send email',<br/>intent: {type: 'followup'},<br/>response: 'Can't do that yet'}"]
-    
+    Start["Initial State<br/>userMessage: Show me leads<br/>intent: null<br/>response: null"]
+    N1["understand_request<br/>Classifies intent"]
+    Mid["State After Node 1<br/>userMessage: Show me leads<br/>intent: type=lookup<br/>response: null"]
+    Router{"routeByIntent<br/>Checks intent.type"}
+    N2["handle_lookup<br/>Returns: Looking up..."]
+    N3["handle_other<br/>Returns: Can't do that yet"]
+    End1["Final State<br/>userMessage: Show me leads<br/>intent: type=lookup<br/>response: Looking up leads..."]
+    End2["Final State<br/>userMessage: Send email<br/>intent: type=followup<br/>response: Can't do that yet"]
     Start --> N1
     N1 --> Mid
     Mid --> Router
-    
     Router -->|"lookup"| N2
     Router -->|"other"| N3
     
@@ -277,16 +269,16 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph "Path 1: Show me leads"
-        A1[understand] --> A2{router}
-        A2 -->|lookup| A3[handle_lookup]
+    subgraph Path1["Path 1: Show me leads"]
+        A1["understand"] --> A2{"router"}
+        A2 -->|lookup| A3["handle_lookup"]
         A3 --> A4([END])
         style A3 fill:#ccffcc
     end
     
-    subgraph "Path 2: Send email"
-        B1[understand] --> B2{router}
-        B2 -->|other| B3[handle_other]
+    subgraph Path2["Path 2: Send email"]
+        B1["understand"] --> B2{"router"}
+        B2 -->|other| B3["handle_other"]
         B3 --> B4([END])
         style B3 fill:#ffcccc
     end

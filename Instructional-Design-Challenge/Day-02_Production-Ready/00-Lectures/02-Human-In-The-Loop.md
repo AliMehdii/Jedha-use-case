@@ -31,13 +31,13 @@ In LangGraph terms, this looks like:
 
 ```mermaid
 graph TD
-    A[Agent Decides Action] --> B{Needs Approval?}
-    B -->|No - Safe Action| C[Execute Immediately]
-    B -->|Yes - Risky Action| D[🛑 Pause & Wait for Human]
-    D --> E{Human Decision}
-    E -->|✅ Approved| F[Execute Action]
-    E -->|❌ Rejected| G[Handle Rejection Gracefully]
-    C --> H[Continue Workflow]
+    A["Agent Decides Action"] --> B{"Needs Approval?"}
+    B -->|"No - Safe Action"| C["Execute Immediately"]
+    B -->|"Yes - Risky Action"| D["Pause & Wait for Human"]
+    D --> E{"Human Decision"}
+    E -->|"Approved"| F["Execute Action"]
+    E -->|"Rejected"| G["Handle Rejection Gracefully"]
+    C --> H["Continue Workflow"]
     F --> H
     G --> H
     

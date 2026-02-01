@@ -160,39 +160,35 @@ Here's what we're building today:
 
 ```mermaid
 graph TB
-    subgraph "Your Agent Today"
-        A[User Request] --> B[Classify Intent]
-        B --> C{What Action?}
-        C -->|Query| D[Query Database]
-        C -->|Update| E{High Value?}
-        C -->|Email| F[Draft Email]
-        
-        E -->|Yes| G[🛑 Human Approval]
-        E -->|No| H[Update Directly]
+    subgraph YourAgent["Your Agent Today"]
+        A["User Request"] --> B["Classify Intent"]
+        B --> C{"What Action?"}
+        C -->|Query| D["Query Database"]
+        C -->|Update| E{"High Value?"}
+        C -->|Email| F["Draft Email"]
+        E -->|Yes| G["Human Approval"]
+        E -->|No| H["Update Directly"]
         G -->|Approved| H
-        G -->|Rejected| I[Cancel Gracefully]
-        
-        F --> J[🛑 Human Approval]
-        J -->|Approved| K[Send Email]
+        G -->|Rejected| I["Cancel Gracefully"]
+        F --> J["Human Approval"]
+        J -->|Approved| K["Send Email"]
         J -->|Rejected| I
-        
-        D --> L{Success?}
+        D --> L{"Success?"}
         H --> L
         K --> L
-        
-        L -->|Yes| M[✅ Return Response]
-        L -->|No| N{Should Retry?}
-        N -->|Yes| O[Wait & Retry<br/>Exponential Backoff]
+        L -->|Yes| M["Return Response"]
+        L -->|No| N{"Should Retry?"}
+        N -->|Yes| O["Wait & Retry<br/>Exponential Backoff"]
         O --> L
-        N -->|No| P[Error Recovery]
-        P --> Q[User-Friendly Error]
+        N -->|No| P["Error Recovery"]
+        P --> Q["User-Friendly Error"]
     end
     
-    subgraph "Safeguards We're Adding"
-        R[Max Retries]
-        S[Approval Gates]
-        T[Error Logging]
-        U[Graceful Degradation]
+    subgraph Safeguards["Safeguards We're Adding"]
+        R["Max Retries"]
+        S["Approval Gates"]
+        T["Error Logging"]
+        U["Graceful Degradation"]
     end
     
     style G fill:#ff9999

@@ -265,24 +265,16 @@ You now have a node that:
 sequenceDiagram
     participant Graph as LangGraph
     participant Node as understandRequest
-    participant Claude as Claude API
+    participant Claude as "Claude API"
     
-    Graph->>Node: State in: {userMessage: "Show me leads"}
-    
+    Graph->>Node: State in: userMessage=Show me leads
     Note over Node: Read user message from state
-    
     Node->>Claude: Classify this intent
-    Claude-->>Node: {type: "lookup", target: "leads"}
-    
+    Claude-->>Node: type=lookup target=leads
     Note over Node: Parse JSON response
-    
-    Node->>Graph: Returns: {intent: {...}}
-    
+    Node->>Graph: Returns: intent object
     Note over Graph: Merges update into state
-    
-    rect rgb(200, 250, 200)
-        Note over Graph: State now has:<br/>userMessage ✓<br/>intent ✓
-    end
+    Note over Graph: State now has:<br/>userMessage present<br/>intent present
 ```
 
 This is the fundamental pattern. Every node in your agent will follow this same structure: read state → do something → return updates.
